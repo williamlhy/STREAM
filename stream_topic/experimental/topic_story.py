@@ -14,7 +14,7 @@ ALLOWED_MODELS = [
 ]
 
 
-def generate_story(
+def story_topic(
     topic,
     api_key,
     model="gpt-3.5-turbo-16k",

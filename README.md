@@ -31,7 +31,6 @@ We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Modul
   - [Preprocessing](#preprocessing)
   - [Model fitting](#model-fitting)
   - [Evaluation](#evaluation)
-    - [Expressivity](#expressivity)
     - [Intruder Accuracy (INT)](#intruder-accuracy-int)
     - [Average Intruder Similarity (ISIM)](#average-intruder-similarity-isim)
     - [Intruder Shift (ISH)](#intruder-shift-ish)
@@ -184,7 +183,7 @@ Since evaluating topic models, especially automatically, STREAM implements numer
       <td>Calculates the shift in the centroid of a topic when an intruder word is replaced.</td>
     </tr>
     <tr>
-      <td><a href="https://direct.mit.edu/coli/article/doi/10.1162/coli_a_00506/118990/Topics-in-the-Haystack-Enhancing-Topic-Quality?searchresult=1">Expressivity</a></td>
+      <td><a href="https://direct.mit.edu/coli/article/doi/10.1162/coli_a_00506/118990/Topics-in-the-Haystack-Enhancing-Topic-Quality?searchresult=1">Expressivity (experimental) </a></td>
       <td>Cosine Distance of topics to meaningless (stopword) embedding centroid</td>
     </tr>
     <tr>
@@ -337,21 +336,6 @@ Depending on the model, check the documentation for hyperparameter settings. To 
 
 In this section, we describe the three metrics used to evaluate topic models' performance: **Intruder Shift (ISH)**, **Intruder Accuracy (INT)**, and **Average Intruder Similarity (ISIM)**.
 
-### Expressivity
-**Expressivity**,  evaluates the meaningfulness of a topic by leveraging stopwords. Stopwords primarily serve a grammatical role and don't contribute to the document's meaning. The steps to calculate Expressivity are as follows:
-
-1. Compute vector embeddings for all stopwords and calculate their centroid embedding, ${\psi}$.
-2. For each topic, compute the weighted centroid of the top $Z$ words, normalized so that their weights sum up to 1: ${\gamma}_k = \frac{1}{Z}\sum_{i=1}^{Z} \phi_{k,i}{\omega_i}$.
-3. Calculate the cosine similarity between each topic centroid ${\gamma}_k$ and the stopword centroid ${\psi}$.
-4. The Expressivity metric is then defined as the average similarity across all $K$ topics:
-
-$$\small{EXPRS({\gamma}, {\psi}) = \frac{1}{K} \sum_{k=1}^{K} sim({\gamma}_k, {\psi})}$$
-
-Note that ${\gamma}_k$ is different from ${\mu}_k$, where the latter is the centroid of the document cluster associated with topic $t_k$. Expressivity can vary based on the chosen stopwords, allowing for domain-specific adjustments to evaluate a topic's expressivity based on a custom stopword set.
-
-This approach provides a quantifiable measure of how well a topic conveys meaningful information, distinct from grammatical structure alone.
-
-
 ### Intruder Accuracy (INT)
 
 The **Intruder Accuracy (INT)** metric aims to improve the identification of intruder words within a topic. Here's how it works:
@@ -388,7 +372,7 @@ A lower ISH score indicates a more coherent and diverse topic model.
 
 To evaluate your model simply use one of the metrics.
 ```python
-from stream_topic.metrics import ISIM, INT, ISH,Expressivity, NPMI
+from stream_topic.metrics import ISIM, INT, ISH, NPMI
 
 metric = ISIM()
 metric.score(topics)

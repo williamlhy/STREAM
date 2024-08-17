@@ -423,13 +423,12 @@ If you use this project in your research, please consider citing:
 ### Paper 1 TBD
 
 ```bibtex
-@inproceedings{thielmann-etal-2024-stream,
-    title = {STREAM: Simplified Topic Retrieval, Exploration, and Analysis Module},
-    author = {Thielmann, Anton  and Reuter, Arik  and Weisser, Christoph  and Kant, Gillian  and Kumar, Manish  and S{\"a}fken, Benjamin},
-    booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
-    year = {2024},
-    publisher = {Association for Computational Linguistics},
-    pages = {435--444},
+@inproceedings{thielmann2024stream,
+  title={STREAM: Simplified Topic Retrieval, Exploration, and Analysis Module},
+  author={Thielmann, Anton and Reuter, Arik and Weisser, Christoph and Kant, Gillian and Kumar, Manish and S{\"a}fken, Benjamin},
+  booktitle={Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
+  pages={435--444},
+  year={2024}
 }
 ```
 

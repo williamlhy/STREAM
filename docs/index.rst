@@ -29,6 +29,7 @@
    api/preprocessor/index
    api/visuals/index
    api/utils/index
+   api/experimental/index
 
 
 .. toctree::

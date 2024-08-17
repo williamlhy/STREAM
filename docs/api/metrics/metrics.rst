@@ -11,9 +11,6 @@ Metrics
 .. autoclass:: stream_topic.metrics.Embedding_Topic_Diversity
     :members:
 
-.. autoclass:: stream_topic.metrics.Expressivity
-    :members:
-
 .. autoclass:: stream_topic.metrics.INT
     :members:
 

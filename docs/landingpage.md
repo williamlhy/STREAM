@@ -134,7 +134,7 @@ Since evaluating topic models, especially automatically, STREAM implements numer
       <td>Calculates the shift in the centroid of a topic when an intruder word is replaced.</td>
     </tr>
     <tr>
-      <td><a href="https://direct.mit.edu/coli/article/doi/10.1162/coli_a_00506/118990/Topics-in-the-Haystack-Enhancing-Topic-Quality?searchresult=1">Expressivity</a></td>
+      <td><a href="https://direct.mit.edu/coli/article/doi/10.1162/coli_a_00506/118990/Topics-in-the-Haystack-Enhancing-Topic-Quality?searchresult=1">Expressivity (experimental) </a></td>
       <td>Cosine Distance of topics to meaningless (stopword) embedding centroid</td>
     </tr>
     <tr>

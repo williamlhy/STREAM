@@ -19,10 +19,17 @@
 # STREAM
 We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Module for user-friendly topic modelling and especially subsequent interactive topic visualization and analysis. Our paper can be found [here](https://aclanthology.org/2024.acl-short.41.pdf).
 
+
+<table>
+  <tr>
+    <td><img src="./docs/images/gif1.gif" alt="First GIF" width="400"/></td>
+    <td><img src="./docs/images/gif2.gif" alt="Second GIF" width="400"/></td>
+  </tr>
+</table>
+
 # Table of Contents
 - [STREAM](#stream)
 - [Table of Contents](#table-of-contents)
-      - [Speed](#speed)
 - [Installation](#installation)
 - [Available Models](#available-models)
 - [Available Metrics](#available-metrics)
@@ -38,31 +45,22 @@ We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Modul
   - [Visualization](#visualization)
   - [Downstream Tasks](#downstream-tasks)
     - [How to use](#how-to-use)
-  - [Contributing and Testing New Models](#contributing-and-testing-new-models)
-    - [Steps for Contributing](#steps-for-contributing)
-      - [Example Model Structure](#example-model-structure)
-      - [Testing Your Model](#testing-your-model)
+- [🧪 Experimental 🧪](#-experimental-)
+- [Contributing and Testing New Models](#contributing-and-testing-new-models)
+  - [Steps for Contributing](#steps-for-contributing)
+    - [Example Model Structure](#example-model-structure)
+    - [Testing Your Model](#testing-your-model)
       - [Validation Criteria](#validation-criteria)
-      - [Submitting Your Contribution](#submitting-your-contribution)
+    - [Submitting Your Contribution](#submitting-your-contribution)
 - [Citation](#citation)
-    - [STREAM](#stream-1)
-    - [Metrics and CEDC](#metrics-and-cedc)
-    - [TNTM](#tntm)
-    - [DCTE](#dcte)
-    - [CBC](#cbc)
+
+
 
 
 
 For better topic analysis, we implement multiple intruder-word based topic evaluation metrics. Additionally, we publicize multiple new datasets that can extend the so far very limited number of publicly available benchmark datasets in topic modeling. We integrate downstream interpretable analysis modules to enable users to easily analyse the created topics in downstream tasks together with additional tabular information.
 
-#### Speed
-Since most of STREAMs models are centered around Document embeddings, STREAM comes along with a set of pre-embedded datasets.
-Additionally, once a user fits a model that leverages document embeddings, the embeddings are saved and automatically loaded the next time the user wants to fit any model with the same set of embeddings.
 
-
-<p align="center">
-    <img src="assets/model_plot.png" alt="Figure Description" width="400"/>
-</p>
 
 Installation
 =============
@@ -472,13 +470,50 @@ from stream_topic.visuals import plot_downstream_model
 plot_downstream_model(downstream_model)
 ```
 
+# 🧪 Experimental 🧪
+stream-topic.experimental includes several experimental topic representations as well as metrics and new stuff we want to try out.
 
+This includes, e.g. topic summarization:
 
-## Contributing and Testing New Models
+```python
+from stream_topic.experimental import stopic_summaries
+
+summaries = topic_summaries(topics, openai_key)
+for summary in summaries:
+    print(f"{summary} \n")
+
+```
+
+But also the possibility to generate a story from the created topics:
+
+```python
+from stream_topic.experimental import story_topic
+
+story = story_topic(topics[1], openai_key)
+print(story)
+
+```
+
+Lastly, it offers the possibility to visualize your topic in a way, a movie poster could be designed:
+
+```python
+from stream_topic.experimental import movie_poster
+
+movie_poster(topics[3], openai_key, return_style="plot")
+
+```
+This is just one of many possible visualization, but we found that to be rather coherent in terms of truly visualizing the created topics.
+Feel free to contribute or rais issues fo further experimental ideas.
+
+<p align="center">
+    <img src="assets/movie_poster1.png" alt="Figure Description" width="400"/>
+</p>
+
+# Contributing and Testing New Models
 
 We welcome contributions to enhance the functionality of our topic modeling package. To ensure your new models integrate seamlessly, please follow the guidelines and testing instructions provided below.
 
-### Steps for Contributing
+## Steps for Contributing
 
 1. **Fork the Repository**:
    - Fork the repository to your GitHub account.
@@ -500,7 +535,7 @@ We welcome contributions to enhance the functionality of our topic modeling pack
    - Create your model class file, ensuring it follows the expected structure and naming conventions.
    - Implement the required methods (`get_info`, `fit`, `predict`) and attributes (`topic_dict`). Optionally, implement `beta`, `theta`, or corresponding methods (`get_beta`, `get_theta`).
 
-#### Example Model Structure
+### Example Model Structure
 
 Here is an example of how your model class should be structured:
 
@@ -536,7 +571,9 @@ class ExampleModel(BaseModel):
         return self.theta
 ```
 
-#### Testing Your Model
+
+
+### Testing Your Model
 
 1. **Install Dependencies**:
    - Ensure all dependencies are installed.
@@ -565,7 +602,7 @@ The following checks are performed during validation:
 
 Refer to the `tests/model_validation.py` script for detailed validation logic.
 
-#### Submitting Your Contribution
+### Submitting Your Contribution
 
 1. **Commit Your Changes**:
    - Commit your changes to your branch.
@@ -595,20 +632,19 @@ If you want to include a new model where these guidelines are not approriate ple
 
 If you use this project in your research, please consider citing:
 
-### STREAM
+<h2> STREAM </h2>
 
 ```bibtex
-@inproceedings{thielmann-etal-2024-stream,
-    title = {STREAM: Simplified Topic Retrieval, Exploration, and Analysis Module},
-    author = {Thielmann, Anton  and Reuter, Arik  and Weisser, Christoph  and Kant, Gillian  and Kumar, Manish  and S{\"a}fken, Benjamin},
-    booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
-    year = {2024},
-    publisher = {Association for Computational Linguistics},
-    pages = {435--444},
+@inproceedings{thielmann2024stream,
+  title={STREAM: Simplified Topic Retrieval, Exploration, and Analysis Module},
+  author={Thielmann, Anton and Reuter, Arik and Weisser, Christoph and Kant, Gillian and Kumar, Manish and S{\"a}fken, Benjamin},
+  booktitle={Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
+  pages={435--444},
+  year={2024}
 }
 ```
 
-###  Metrics and CEDC
+<h2>  Metrics and CEDC </h2>
 
 ```bibtex
 @article{thielmann2024topics,
@@ -621,7 +657,7 @@ If you use this project in your research, please consider citing:
 }
 ```
 
-### TNTM
+<h2> TNTM </h2>
 
 ```bibtex
 @article{reuter2024probabilistic,
@@ -633,7 +669,7 @@ If you use this project in your research, please consider citing:
 ```
 
 
-### DCTE
+<h2> DCTE </h2>
 
 ```bibtex
 @inproceedings{thielmann2024human,
@@ -645,7 +681,7 @@ If you use this project in your research, please consider citing:
 }
 ```
 
-### CBC
+<h2> CBC </h2>
 
 ```bibtex
 @inproceedings{thielmann2023coherence,

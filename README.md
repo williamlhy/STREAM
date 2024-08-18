@@ -458,7 +458,7 @@ This is just one of many possible visualization, but we found that to be rather 
 Feel free to contribute or rais issues fo further experimental ideas.
 
 <p align="center">
-    <img src="assets/movie_poster1.png" alt="Figure Description" width="400"/>
+    <img src="assets/movie_poster_topic1.png" alt="Figure Description" width="400"/>
 </p>
 
 # Contributing and Testing New Models

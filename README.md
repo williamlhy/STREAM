@@ -38,9 +38,6 @@ We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Modul
   - [Preprocessing](#preprocessing)
   - [Model fitting](#model-fitting)
   - [Evaluation](#evaluation)
-    - [Intruder Accuracy (INT)](#intruder-accuracy-int)
-    - [Average Intruder Similarity (ISIM)](#average-intruder-similarity-isim)
-    - [Intruder Shift (ISH)](#intruder-shift-ish)
   - [Hyperparameter optimization](#hyperparameter-optimization)
   - [Visualization](#visualization)
   - [Downstream Tasks](#downstream-tasks)
@@ -332,41 +329,9 @@ Depending on the model, check the documentation for hyperparameter settings. To 
 
 ## Evaluation
 
-In this section, we describe the three metrics used to evaluate topic models' performance: **Intruder Shift (ISH)**, **Intruder Accuracy (INT)**, and **Average Intruder Similarity (ISIM)**.
-
-### Intruder Accuracy (INT)
-
-The **Intruder Accuracy (INT)** metric aims to improve the identification of intruder words within a topic. Here's how it works:
-
-1. Given the top Z words of a topic, randomly select an intruder word from another topic.
-2. Calculate the cosine similarity between all possible pairs of words within the set of the top Z words and the intruder word.
-3. Compute the fraction of top words for which the intruder has the least similar word embedding using the following formula:
- 
-$$\small{INT(t_k) = \frac{1}{Z}\sum_{i=1}^Z {1}(\forall j: sim({\omega}_i, {\hat{\omega}}) < sim({\omega}_i, {\omega}_j))}$$
+stream-topic implements various evaluation metrics, mostly focused around the intruder word task. The implemented metrics achieve high correlations with human evaluation. See [here](https://direct.mit.edu/coli/article/doi/10.1162/coli_a_00506/118990/Topics-in-the-Haystack-Enhancing-Topic-Quality?searchresult=1) for the detailed description of the metrics.
 
 
-INT measures how effectively the intruder word can be distinguished from the top words in a topic. A larger value is better.
-
-### Average Intruder Similarity (ISIM)
-
-The **Average Intruder Similarity (ISIM)** metric calculates the average cosine similarity between each word in a topic and an intruder word:
-$$ISIM(t_k) = \frac{1}{Z} \sum_{i=1}^{Z} sim({\omega}_i, {\hat{\omega}})$$
-
-To enhance the metrics' robustness against the specific selection of intruder words, ISH, INT, and ISIM are computed multiple times with different randomly chosen intruder words, and the results are averaged.
-
-These metrics provide insights into the performance of topic models and their ability to maintain topic coherence and diversity. A smaller value is better.
-
-### Intruder Shift (ISH)
-
-The **Intruder Shift (ISH)** metric quantifies the shift in a topic's centroid when an intruder word is substituted. This process involves the following steps:
-
-1. Compute the unweighted centroid of a topic and denote it as $\tilde{\boldsymbol{\gamma}}_i$.
-2. Randomly select a word from that topic and replace it with a randomly selected word from a different topic.
-3. Recalculate the centroid of the resulting words and denote it as $\hat{\boldsymbol{\gamma}}_i$.
-4. Calculate the ISH score for a topic by averaging the cosine similarity between $\tilde{{\gamma}}_i$ and $\hat{\boldsymbol{\gamma}}_i$ for all topics using the formula:
-5. 
-$$ISH(T) = \frac{1}{K} \sum_{i=1}^{K} sim(\tilde{{\gamma}}_i, \hat{{\gamma}}_i)$$
-A lower ISH score indicates a more coherent and diverse topic model.
 
 To evaluate your model simply use one of the metrics.
 ```python
@@ -420,30 +385,15 @@ visualize_topic_model(
 ```
 
 <p align="center">
-    <img src="assets/topical_distances.png" alt="Figure Description" width="600"/>
+    <img src="./docs/images/gif2.gif" alt="Figure Description" width="750"/>
 </p>
 
 ## Downstream Tasks
+STREAM offers an interpretable downstream task model, following additive models.
+The general architecture of a Neural Additive Model (NAM) is described by [Agarwal et al. (2021)](https://proceedings.neurips.cc/paper/2021/file/251bd0442dfcc53b5a761e050f8022b8-Paper.pdf).
 
-The general formulation of a Neural Additive Model (NAM) can be summarized by the equation:
+See [stream](https://aclanthology.org/2024.acl-short.41.pdf) for the detailed model description within the stream-topic framework.
 
-$$
-E(y) = h(β + ∑_{j=1}^{J} f_j(x_j)),
-$$
-
-where $h(·)$ denotes the activation function in the output layer, such as a linear activation for regression tasks or softmax for classification tasks. $x ∈ R^j$ represents the input features, and $β$ is the intercept. The function $f_j : R → R$ corresponds to the Multi-Layer Perceptron (MLP) for the $j$-th feature.
-
-Let's consider $x$ as a combination of categorical and numerical features $x_{tab}$ and document features $x_{doc}$. After applying a topic model, STREAM extracts topical prevalences from documents, effectively transforming the input into $z ≡ (x_{tab}, x_{top})$, a probability vector over documents and topics. Here, $x_{j(tab)}^{(i)}$ indicates the $j$-th tabular feature of the $i$-th observation, and $x_{k(top)}^{(i)}$ represents the $i$-th document's topical prevalence for topic $k$.
-
-For preserving interpretability, the downstream model is defined as:
-
-$$
-h(E[y]) = β + ∑_{j=1}^{J} f_j(x_{j(tab)}) + ∑_{k=1}^{K} f_k(x_{k(top)}),
-$$
-
-In this setup, visualizing the shape function `k` reveals the impact of a topic on the target variable `y`. For example, in the context of the Spotify dataset, this could illustrate how a topic influences a song's popularity.
-
-Fitting a downstream model with a pre-trained topic model is straightforward using the PyTorch Trainer class. Subsequently, visualizing all shape functions can be done similarly to the approach described by Agarwal et al. (2021).
 
 ### How to use
 
@@ -499,7 +449,9 @@ Lastly, it offers the possibility to visualize your topic in a way, a movie post
 ```python
 from stream_topic.experimental import movie_poster
 
-movie_poster(topics[3], openai_key, return_style="plot")
+topic = ["tiger", "lion", "cougar", "cat", "hippo", "chair", "apple", "meat", "poachers", "hyeena"]
+
+movie_poster(topic, openai_key, return_style="plot")
 
 ```
 This is just one of many possible visualization, but we found that to be rather coherent in terms of truly visualizing the created topics.

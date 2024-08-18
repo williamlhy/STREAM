@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualize Model Results</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .hero-section {
+            background: linear-gradient(to right, #0066ff, #00ccff);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 0 0 50% 50% / 5%;
+        }
+
+        .hero-section h1 {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-section">
+        <h1>Visualize Your Model Results</h1>
+        <p>Select a visualization option to display the results</p>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-4">
+                    <form method="POST" action="/visualizations">
+                        <div class="form-group">
+                            <label for="visualization">Choose a visualization:</label>
+                            <select class="form-control" id="visualization" name="visualization">
+                                <option value="topic_overview">Topic Overview</option>
+                                <option value="word_cloud">Word Cloud</option>
+                                <!-- Add more visualizations as needed -->
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Visualize</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

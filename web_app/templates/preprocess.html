@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preprocess Dataset</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .hero-section {
+            background: linear-gradient(to right, #0066ff, #00ccff);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 50% 50% / 5%;
+        }
+
+        .hero-section h1 {
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .hero-section p {
+            font-weight: 300;
+            font-size: 1.2rem;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-success {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #1f8ef1;
+            border-color: #1f8ef1;
+        }
+
+        .btn-primary:hover {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            font-weight: 500;
+        }
+    </style>
+    <!-- Optional JavaScript -->
+    <script>
+        function showPreprocessingMessage() {
+            var messageDiv = document.getElementById('preprocessing-message');
+            messageDiv.innerHTML = '<div class="alert alert-warning text-center">Preprocessing...</div>';
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="hero-section">
+        <h1>Preprocess Your Dataset</h1>
+        <p>Select a model to preprocess the dataset</p>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <!-- Model Selection and Preprocessing Section -->
+                    <form method="POST" action="/preprocess">
+                        <div class="form-group">
+                            <label for="model">Choose a model:</label>
+                            <select class="form-control" id="model" name="model">
+                                <option value="KmeansTM">KmeansTM</option>
+                                <option value="LDA">LDA</option>
+                                <option value="NMF">NMF</option>
+                                <!-- Add more models as needed -->
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block"
+                            onclick="showPreprocessingMessage()">Preprocess Dataset</button>
+                    </form>
+
+                    <div id="preprocessing-message" class="mt-3">
+                        {% if preprocessing_message %}
+                        <div class="alert alert-warning text-center">
+                            {{ preprocessing_message }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if preprocessing_message %}
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('download_and_continue') }}" class="btn btn-success">Download and
+                            Continue</a>
+                        <a href="{{ url_for('fit_model') }}" class="btn btn-secondary">Continue Without Download</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

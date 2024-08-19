@@ -16,8 +16,12 @@
 </div>
 
 
-# STREAM
-We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Module for user-friendly topic modelling and especially subsequent interactive topic visualization and analysis. Our paper can be found [here](https://aclanthology.org/2024.acl-short.41.pdf).
+<h1>STREAM: A Simplified Topic Retrieval, Exploration, and Analysis Module</h1>
+
+<h3 style="text-align: center;">- Topic Modeling in Python -</h3>
+
+<p>We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Module for User-Friendly and Interactive Topic Modeling and Visualization. Our paper can be found <a href="https://aclanthology.org/2024.acl-short.41.pdf">here</a>.</p>
+
 
 
 <table>
@@ -27,9 +31,8 @@ We present STREAM, a Simplified Topic Retrieval, Exploration, and Analysis Modul
   </tr>
 </table>
 
-# Table of Contents
-- [STREAM](#stream)
-- [Table of Contents](#table-of-contents)
+<h2> Table of Contents </h2>
+
 - [Installation](#installation)
 - [Available Models](#available-models)
 - [Available Metrics](#available-metrics)
